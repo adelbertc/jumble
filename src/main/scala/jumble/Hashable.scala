@@ -112,7 +112,93 @@ sealed abstract class HashableInstances {
       override def hashWithSalt(salt: Int, x: IList[A]): Int = x.foldLeft(salt)(A.hashWithSalt)
     }
 
-  /** TODO: Add Hashable instances for Tuple{2 - 12} */
+  implicit def tuple2Hashable[A, B](implicit A: Hashable[A], B: Hashable[B]): Hashable[(A, B)] =
+    new Hashable[(A, B)] {
+      override def hash(x: (A, B)): Int =
+        B.hashWithSalt(A.hash(x._1), x._2)
+      override def hashWithSalt(salt: Int, x: (A, B)): Int =
+        B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2)
+    }
+
+  implicit def tuple3Hashable[A, B, C](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C]): Hashable[(A, B, C)] =
+    new Hashable[(A, B, C)] {
+      override def hash(x: (A, B, C)): Int =
+        C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3)
+      override def hashWithSalt(salt: Int, x: (A, B, C)): Int =
+        C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3)
+    }
+
+  implicit def tuple4Hashable[A, B, C, D](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D]): Hashable[(A, B, C, D)] =
+    new Hashable[(A, B, C, D)] {
+      override def hash(x: (A, B, C, D)): Int =
+        D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D)): Int =
+        D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4)
+    }
+
+  implicit def tuple5Hashable[A, B, C, D, E](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E]): Hashable[(A, B, C, D, E)] =
+    new Hashable[(A, B, C, D, E)] {
+      override def hash(x: (A, B, C, D, E)): Int =
+        E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E)): Int =
+        E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5)
+    }
+
+  implicit def tuple6Hashable[A, B, C, D, E, F](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E], F: Hashable[F]): Hashable[(A, B, C, D, E, F)] =
+    new Hashable[(A, B, C, D, E, F)] {
+      override def hash(x: (A, B, C, D, E, F)): Int =
+        F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F)): Int =
+        F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6)
+    }
+
+  implicit def tuple7Hashable[A, B, C, D, E, F, G](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E], F: Hashable[F], G: Hashable[G]): Hashable[(A, B, C, D, E, F, G)] =
+    new Hashable[(A, B, C, D, E, F, G)] {
+      override def hash(x: (A, B, C, D, E, F, G)): Int =
+        G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G)): Int =
+        G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7)
+    }
+
+  implicit def tuple8Hashable[A, B, C, D, E, F, G, H](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E], F: Hashable[F], G: Hashable[G], H: Hashable[H]): Hashable[(A, B, C, D, E, F, G, H)] =
+    new Hashable[(A, B, C, D, E, F, G, H)] {
+      override def hash(x: (A, B, C, D, E, F, G, H)): Int =
+        H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H)): Int =
+        H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8)
+    }
+
+  implicit def tuple9Hashable[A, B, C, D, E, F, G, H, I](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E], F: Hashable[F], G: Hashable[G], H: Hashable[H], I: Hashable[I]): Hashable[(A, B, C, D, E, F, G, H, I)] =
+    new Hashable[(A, B, C, D, E, F, G, H, I)] {
+      override def hash(x: (A, B, C, D, E, F, G, H, I)): Int =
+        I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H, I)): Int =
+        I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9)
+    }
+
+  implicit def tuple10Hashable[A, B, C, D, E, F, G, H, I, J](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E], F: Hashable[F], G: Hashable[G], H: Hashable[H], I: Hashable[I], J: Hashable[J]): Hashable[(A, B, C, D, E, F, G, H, I, J)] =
+    new Hashable[(A, B, C, D, E, F, G, H, I, J)] {
+      override def hash(x: (A, B, C, D, E, F, G, H, I, J)): Int =
+        J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H, I, J)): Int =
+        J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10)
+    }
+
+  implicit def tuple11Hashable[A, B, C, D, E, F, G, H, I, J, K](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E], F: Hashable[F], G: Hashable[G], H: Hashable[H], I: Hashable[I], J: Hashable[J], K: Hashable[K]): Hashable[(A, B, C, D, E, F, G, H, I, J, K)] =
+    new Hashable[(A, B, C, D, E, F, G, H, I, J, K)] {
+      override def hash(x: (A, B, C, D, E, F, G, H, I, J, K)): Int =
+        K.hashWithSalt(J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10), x._11)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H, I, J, K)): Int =
+        K.hashWithSalt(J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10), x._11)
+    }
+
+  implicit def tuple12Hashable[A, B, C, D, E, F, G, H, I, J, K, L](implicit A: Hashable[A], B: Hashable[B], C: Hashable[C], D: Hashable[D], E: Hashable[E], F: Hashable[F], G: Hashable[G], H: Hashable[H], I: Hashable[I], J: Hashable[J], K: Hashable[K], L: Hashable[L]): Hashable[(A, B, C, D, E, F, G, H, I, J, K, L)] =
+    new Hashable[(A, B, C, D, E, F, G, H, I, J, K, L)] {
+      override def hash(x: (A, B, C, D, E, F, G, H, I, J, K, L)): Int =
+        L.hashWithSalt(K.hashWithSalt(J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10), x._11), x._12)
+      override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H, I, J, K, L)): Int =
+        L.hashWithSalt(K.hashWithSalt(J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10), x._11), x._12)
+    }
 }
 
 sealed trait HashableFunctions {
