@@ -116,6 +116,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B)] {
       override def hash(x: (A, B)): Int =
         B.hashWithSalt(A.hash(x._1), x._2)
+
       override def hashWithSalt(salt: Int, x: (A, B)): Int =
         B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2)
     }
@@ -124,6 +125,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C)] {
       override def hash(x: (A, B, C)): Int =
         C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3)
+
       override def hashWithSalt(salt: Int, x: (A, B, C)): Int =
         C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3)
     }
@@ -132,6 +134,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D)] {
       override def hash(x: (A, B, C, D)): Int =
         D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D)): Int =
         D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4)
     }
@@ -140,6 +143,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D, E)] {
       override def hash(x: (A, B, C, D, E)): Int =
         E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D, E)): Int =
         E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5)
     }
@@ -148,6 +152,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D, E, F)] {
       override def hash(x: (A, B, C, D, E, F)): Int =
         F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F)): Int =
         F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6)
     }
@@ -156,6 +161,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D, E, F, G)] {
       override def hash(x: (A, B, C, D, E, F, G)): Int =
         G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G)): Int =
         G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7)
     }
@@ -164,6 +170,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D, E, F, G, H)] {
       override def hash(x: (A, B, C, D, E, F, G, H)): Int =
         H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H)): Int =
         H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8)
     }
@@ -172,6 +179,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D, E, F, G, H, I)] {
       override def hash(x: (A, B, C, D, E, F, G, H, I)): Int =
         I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H, I)): Int =
         I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9)
     }
@@ -180,6 +188,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D, E, F, G, H, I, J)] {
       override def hash(x: (A, B, C, D, E, F, G, H, I, J)): Int =
         J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H, I, J)): Int =
         J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10)
     }
@@ -188,6 +197,7 @@ sealed abstract class HashableInstances {
     new Hashable[(A, B, C, D, E, F, G, H, I, J, K)] {
       override def hash(x: (A, B, C, D, E, F, G, H, I, J, K)): Int =
         K.hashWithSalt(J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hash(x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10), x._11)
+
       override def hashWithSalt(salt: Int, x: (A, B, C, D, E, F, G, H, I, J, K)): Int =
         K.hashWithSalt(J.hashWithSalt(I.hashWithSalt(H.hashWithSalt(G.hashWithSalt(F.hashWithSalt(E.hashWithSalt(D.hashWithSalt(C.hashWithSalt(B.hashWithSalt(A.hashWithSalt(salt, x._1), x._2), x._3), x._4), x._5), x._6), x._7), x._8), x._9), x._10), x._11)
     }
