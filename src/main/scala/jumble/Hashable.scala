@@ -1,6 +1,7 @@
 package jumble
 
-import scalaz.{ \/, -\/, \/-, IList }
+import scalaz.{ \/, -\/, \/-, Foldable, IList }
+import scalaz.std.list._
 
 /** Hashable type class.
   *
@@ -102,14 +103,20 @@ sealed abstract class HashableInstances {
       override def hashWithSalt(salt: Int, x: String): Int = x.foldLeft(salt)(Hashable[Char].hashWithSalt)
     }
 
+  def foldableHashable[F[_], A](implicit F: Foldable[F], A: Hashable[A]): Hashable[F[A]] =
+    new Hashable[F[A]] {
+      override def hashWithSalt(salt: Int, x: F[A]): Int =
+        F.foldLeft(x, salt)(A.hashWithSalt)
+    }
+
   implicit def listHashable[A](implicit A: Hashable[A]): Hashable[List[A]] =
     new Hashable[List[A]] {
-      override def hashWithSalt(salt: Int, x: List[A]): Int = x.foldLeft(salt)(A.hashWithSalt)
+      override def hashWithSalt(salt: Int, x: List[A]): Int = foldableHashable[List, A].hashWithSalt(salt, x)
     }
 
   implicit def ilistHashable[A](implicit A: Hashable[A]): Hashable[IList[A]] =
     new Hashable[IList[A]] {
-      override def hashWithSalt(salt: Int, x: IList[A]): Int = x.foldLeft(salt)(A.hashWithSalt)
+      override def hashWithSalt(salt: Int, x: IList[A]): Int = foldableHashable[IList, A].hashWithSalt(salt, x)
     }
 
   implicit def tuple2Hashable[A, B](implicit A: Hashable[A], B: Hashable[B]): Hashable[(A, B)] =
